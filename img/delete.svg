@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4352.785 94.03 20.414 20.351">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.52;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #888d95;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="delete" class="cls-1" transform="translate(3348 -18)">
+    <path id="Path_41" data-name="Path 41" class="cls-2" d="M1024.429,112.737l-18.937,18.937"/>
+    <path id="Path_42" data-name="Path 42" class="cls-2" d="M1005.492,112.737l18.937,18.937" transform="translate(0.063)"/>
+  </g>
+</svg>

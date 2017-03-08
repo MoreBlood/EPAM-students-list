@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="workerlistapp">
+<head>
+<!-- build:css -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/modal.css">
+<!-- endbuild -->
+<title>Table</title>
+<meta charset="utf-8">
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <p class="current-pos bold" id="current-group">AI-12</p>&nbsp<p class="current-pos light">Group</p><span class="arrow"></span>
+    </div>
+    <div class="info">
+    <div class="info-right">
+        <p class="some-info">Some info about group</p>
+        
+        <div class="graduate-block">
+            <div class="date start">
+                <p class="big-year start" id="start-year">2013</p>
+                <p class="info-year" id="end-year">start</p>
+            </div>
+            <div class="year-separator"></div>
+            <div class="date end">
+                <p class="big-year end">2016</p>
+                <p class="info-year">graduate</p>
+            </div>
+            </div>
+        </div>
+        <div class="controls-info">
+            <p class="some-info" id="avg-mark" >AVG mark&nbsp<p class="some-info bold">2.28</p></p>&nbsp&nbsp
+            <p class="some-info" id="num-stud">Number of students&nbsp<p class="some-info bold">27</p></p>
+            <button class="button small add" id="add-btn"><span class="icon add-icon"></span>Add</button>
+        </div>
+        
+    </div>
+    <div class="table-holder">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="st-th-1">Name</th>
+                    <th class="st-th-2">Marks</th>
+                </tr>
+            </thead>
+            <tbody id="stud-body">
+
+            </tbody>
+        </table>
+        </div>
+</div>
+
+            <script src="js/jquery.min.js"></script>
+            <script src="js/main.js"></script>
+</body>
+</html>
