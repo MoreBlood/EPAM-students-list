@@ -17,7 +17,7 @@ td {
 }
 
 p.big-text {
-    font-size: 30px;
+    font-size: 20px;
     color: #95989A;
     font-weight: 500;
 }
@@ -32,11 +32,11 @@ p.big-text {
 }
 
 input.input {
-    height: 50px;
+    height: 35px;
     width: 340px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid #E5E5E5;
-    font-size: 25px;
+    font-size: 20px;
     padding-left: 20px;
     color: #95989A;
     font-weight: 100;
@@ -49,22 +49,22 @@ input.input.modal {
 
 .input-name-holder {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     flex-basis: auto;
     flex-wrap: wrap;
-    padding-left: 30px;
+    /* padding-left: 30px; */
 }
 
 .input.name {
     display: flex;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     align-items: center;
     padding-left: 20px;
     font-weight: 600;
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 5px;
     background-color: #efefef;
-    border-top-right-radius: 10px;
+    border-top-right-radius: 5px;
     padding-right: 20px;
     color: #95989A;
     border: 1px solid #e5e5e5;
@@ -76,8 +76,8 @@ input.input.modal {
 :-ms-input-placeholder      {color:#ececec;}
 
 .modal-body {
-    margin-top: 25px;
-    margin-left: 60px;
+    margin-top: 0px;
+    /* margin-left: 60px; */
 }
 
 body {
@@ -132,7 +132,7 @@ input.radio {
 }
 
 .modal-footer {
-    padding: 25px;
+    padding: 15px;
     padding-left: 25px;
     border-top: 1px solid rgba(128, 128, 128, 0.16);
     justify-content: flex-end;
@@ -330,7 +330,9 @@ td.mid-td {
     font-size: 25px;
 }
 
-td {}
+td {
+    border: 1px solid rgba(242, 242, 242, 0.25);
+}
 
 td.left-td.first {
     padding-left: 40px;
@@ -338,6 +340,7 @@ td.left-td.first {
     font-weight: 200;
     color: #95989A;
     text-align: left;
+    vertical-align: middle;
 }
 
 .year-separator {
@@ -407,7 +410,7 @@ th.datepicker-switch {
 }
 
 .modal-window.change {
-    width: 367px;
+    width: 335px;
     /* padding: 20px; */
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.19);
 }
@@ -416,4 +419,45 @@ input.r-border {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     width: 190px;
+}
+.small-button{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    float: right;
+    margin: 7px;
+    margin-top: 9px;
+    opacity: 0;
+    transition: all 0.1s cubic-bezier(1, 0.1, 1, 1);
+}
+.small-button.edit{
+    -webkit-mask: url(../img/edit.svg);
+    background: #00c8fe;
+    mask: url(../img/edit.svg);
+    margin-right: 20px;
+}
+.small-button.delete {-webkit-mask: url(../img/delete.svg);background: #fe0000;mask: url(../img/delete.svg);}
+
+span.gr-name {
+    width: 100%;
+}
+
+button#update {
+    padding-right: 10px;
+    margin: 0px;
+}
+
+span.small-button:hover {
+    opacity: 1!important;
+    cursor: pointer;
+}
+
+a.href-groups {
+    color: white;
+}
+
+a.href-groups:hover {
+    text-decoration: none;
+    color: #ffffff;
+    text-shadow: 0 0 13px white;
 }

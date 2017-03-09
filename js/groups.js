@@ -1,4 +1,4 @@
-var host = "http://192.168.0.102:8088";
+var host = "http://localhost:8088";
 $(document).ready(function () {
     if(kek=getUrlParameter('zalupa'))  alert(kek);
 
@@ -22,6 +22,33 @@ $(document).ready(function () {
         RenderGroups("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
 
     });
+    $('#stud-body').on("mouseenter", ".left-td.first",  function () {
+        $(this).find(".small-button").css({
+            opacity : 0.4
+        })
+
+    });
+    $('#stud-body').on("mouseleave", ".left-td.first",  function () {
+        $(this).find(".small-button").css({
+            opacity : 0
+        })
+
+    });
+    $('#stud-body').on("click", ".small-button.edit",  function () {
+        console.log($(this).parent().find(".gr-name").attr("gr-id"));
+
+    });
+    $('#stud-body').on("click", ".small-button.delete",  function () {
+        console.log($(this).parent().find(".gr-name").attr("gr-id"));
+
+    });
+    $('#stud-body').on("click", "td.left-td.first",  function (e) {
+        if (e.target !== this && e.target ==$(".gr-name"))
+            return;
+        window.location.href = "group.html?group=" +$(this).parent().find(".gr-name").attr("gr-id");
+
+    });
+
 
 
 });
@@ -34,7 +61,7 @@ function show_edit() {
         display: 'flex'
     });
     if (event.pageY + $("#filter-edit").height() > $(window).height()) $("#filter-edit").css({
-        top: $(window).height() - $("#filter-edit").height() * 1.5
+        top: event.pageY
     });
     if (event.pageX + $("#filter-edit").width() > $(window).width()) $("#filter-edit").css({
         left: $(window).width() - $("#filter-edit").width() * 1.5
@@ -58,10 +85,10 @@ function RenderGroups(param) {
 }
 function DrawGroups(data) {
     for (var group in data) {
-        $("#stud-body").append('<tr class="tr-gr"> <td class="left-td first">' + data[group].name + '</td>' + '<td class="left-td first mid">' + data[group].graduationDate + '</td>' + '<td class="mid-td">' + (Math.round(GetAvgMark(data[group].groupId) * 100) / 100) + '</td> </tr>')
-
+        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" gr-id="' + data[group].groupId + '">' + data[group].name +'</span><span class="small-button edit"></span>'+'<span class="small-button delete"></span>' +
+            '</td>' + '<td class="left-td first mid">' + data[group].graduationDate + '</td>' +
+            '<td class="mid-td">' + (Math.round(GetAvgMark(data[group].groupId) * 100) / 100) + '</td> </tr>')
     }
-
 }
 function GetAvgMark(groupId) {
     var resp = $.ajax({
@@ -78,6 +105,7 @@ function GetAvgMark(groupId) {
         }
     });
     return resp.responseText;
+
 
 }
 
