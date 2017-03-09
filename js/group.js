@@ -121,7 +121,7 @@ function show_edit_center(type, id,name,mark,group) {
             '<select id="new-st-group" class="select-modal">' + selects+
             '</select>'+
             '</div><br><br>');
-        $(".select-modal").val(group);
+        $(".select-modal").val(groups[0].name);
         $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="AddSt()">Add</button>');
     }
     if (type === "filter"){

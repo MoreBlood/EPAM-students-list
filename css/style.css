@@ -336,7 +336,7 @@ td.mid-td {
 }
 
 td {
-    border: 1px solid rgba(242, 242, 242, 0.25);
+    border: 1px solid rgb(242, 242, 242);
 }
 
 td.left-td.first {
@@ -345,7 +345,7 @@ td.left-td.first {
     font-weight: 200;
     color: #95989A;
     text-align: left;
-    vertical-align: middle;
+    vertical-align: inherit;
 }
 
 .year-separator {
@@ -448,6 +448,7 @@ input.r-border {
 
 span.gr-name {
     width: 100%;
+    vertical-align: sub;
 }
 
 button#update {
