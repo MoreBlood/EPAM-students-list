@@ -8,6 +8,9 @@ $(document).ready(function () {
         show_edit_center("filter");
 
     });
+    $('#add-btn').click(function () {
+        show_edit_center("add");
+    });
     $('.close-background, .close-modal').click(function () {
 
         CloseModal();
@@ -68,6 +71,12 @@ function EditGr(id) {
     EditGroup(id, name, grad);
     CloseModal();
 }
+function AddGr() {
+    $("#stud-body").empty();
+    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
+    AddGroup(name, grad);
+    CloseModal();
+}
 function UpdateGr() {
     $("#stud-body").empty();
     RenderGroups("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
@@ -96,6 +105,20 @@ function show_edit_center(type, id,name,grad) {
             format: "yyyy-mm-dd"
         });
         $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr(' + id + ')">Edit</button>');
+    }
+    if (type === "add"){
+        $(".modal-header").append('<p class="big-text">Add new Group</p>');
+        $(".modal-body").append('<br><div class="input-name-holder">' +
+            '<input type="text" id="new-group-name" class="input r-border" placeholder="Group name" >' +
+            '<div class="input name"><p class="name-p">Name</p></div></div>'+
+            '<br><div class="input-name-holder">' +
+            '<input type="text" id="new-group-grad" class="input r-border" placeholder="2007-05-09">' +
+            '<div class="input name"><p class="name-p">Graduation</p></div>'+
+            '</div><br>');
+        $("#new-group-grad").datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="AddGr()">Add</button>');
     }
     if (type === "filter"){
         $(".modal-header").append('<p class="big-text">Filter by date</p>');
@@ -179,6 +202,24 @@ function EditGroup(id, name, grad) {
     console.log(JSON.stringify(new_group));
     $.ajax({
         type: "PUT",
+        url: host + "/groups",
+        data : JSON.stringify(new_group),
+        contentType : 'application/json',
+        success: function (data) {
+            RenderGroups();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            alert('findAll: ' + textStatus);
+        }
+    });
+}
+
+function AddGroup(name, grad) {
+    var new_group = {"name": name, "graduationDate": grad};
+    console.log(JSON.stringify(new_group));
+    $.ajax({
+        type: "POST",
         url: host + "/groups",
         data : JSON.stringify(new_group),
         contentType : 'application/json',

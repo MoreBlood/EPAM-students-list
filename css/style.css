@@ -87,6 +87,7 @@ body {
     display: flex;
     align-items: center;
     margin: 0;
+    overflow-x: hidden;
 }
 
 p.name-p {
@@ -347,6 +348,7 @@ td.left-td.first {
     color: #95989A;
     text-align: left;
     vertical-align: inherit;
+    cursor: pointer;
 }
 
 .year-separator {
