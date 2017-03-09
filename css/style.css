@@ -29,6 +29,7 @@ p.big-text {
     /* padding-bottom: 0px; */
     /* padding-top: 0px; */
     position: relative;
+    padding-right: 46px;
 }
 
 input.input {
@@ -156,17 +157,17 @@ button.button {
     height: 50px;
 }
 
-.close.modal {
+.close-modal {
     position: absolute;
-    width: 19px;
-    height: 19px;
-    top: 21px;
-    right: 24px;
+    width: 12px;
+    height: 12px;
+    top: 11px;
+    right: 10px;
     z-index: 100;
     cursor: pointer;
     mask: url("../img/delete.svg");
     -webkit-mask: url("../img/delete.svg");
-    background: rgba(0, 0, 0, 0.59);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 button.button:hover {
@@ -198,7 +199,7 @@ select.select-modal:hover {
     width: 100%;
     display: flex;
     flex-direction: column;
-    transition: all 0.3s cubic-bezier(1, 0.1, 1, 1);
+    transition: all 0.2s cubic-bezier(0.06, 0.97, 1, 1);
 }
 
 .header {
@@ -415,6 +416,7 @@ th.datepicker-switch {
     z-index: 10;
     left: 50%;
     transform: translateX(-50%);
+    top: 20%;
 }
 
 .modal-window.change {

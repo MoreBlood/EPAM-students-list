@@ -1,6 +1,6 @@
 var host = "http://localhost:8088";
 $(document).ready(function () {
-    if(kek=getUrlParameter('zalupa'))  alert(kek);
+
 
     RenderGroups();
     $('#date-end').datepicker({
@@ -13,7 +13,7 @@ $(document).ready(function () {
         show_edit_center("filter");
 
     });
-    $('.close-background').click(function () {
+    $('.close-background, .close-modal').click(function () {
 
         CloseModal();
     });
@@ -33,7 +33,8 @@ $(document).ready(function () {
     $('#stud-body').on("click", ".small-button.edit",  function () {
         var id = $(this).parent().find(".gr-name").attr("gr-id");
         var name = $(this).parent().find(".gr-name").html();
-        show_edit_center("edit", id, name);
+        var grad = $(this).parent().parent().find(".left-td.first.mid").html();
+        show_edit_center("edit", id, name, grad);
 
     });
     $('#stud-body').on("click", ".small-button.delete",  function () {
@@ -61,14 +62,15 @@ function CloseModal() {
     })
 }
 
-function DeleteGr() {
+function DeleteGr(id) {
         $("#stud-body").empty();
-        RenderGroups();
-    CloseModal();
+        DeleteGroup(id);
+        CloseModal();
 }
-function EditGr() {
+function EditGr(id) {
     $("#stud-body").empty();
-    RenderGroups();
+    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
+    EditGroup(id, name, grad);
     CloseModal();
 }
 function UpdateGr() {
@@ -77,7 +79,7 @@ function UpdateGr() {
     CloseModal();
 }
 
-function show_edit_center(type, id,name) {
+function show_edit_center(type, id,name,grad) {
     $(".app").css({
         filter: "blur(2px)"
     });
@@ -90,9 +92,15 @@ function show_edit_center(type, id,name) {
         $(".modal-header").append('<p class="big-text">Edit Group ' + name + ' name</p>');
         $(".modal-body").append('<br><div class="input-name-holder">' +
             '<input type="text" id="new-group-name" class="input r-border" placeholder="Group name" value="' + name +'">' +
-            '<div class="input name"><p class="name-p">Name</p></div>'+
+            '<div class="input name"><p class="name-p">Name</p></div></div>'+
+            '<br><div class="input-name-holder">' +
+            '<input type="text" id="new-group-grad" class="input r-border" placeholder="2007-05-09" value="' + grad +'">' +
+            '<div class="input name"><p class="name-p">Graduation</p></div>'+
             '</div><br>');
-        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr()">Edit</button>');
+        $("#new-group-grad").datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr(' + id + ')">Edit</button>');
     }
     if (type === "filter"){
         $(".modal-header").append('<p class="big-text">Filter by date</p>');
@@ -118,8 +126,8 @@ function show_edit_center(type, id,name) {
                         '<p class="some-info">' +data.length + " students will be also deleted"+ '</p>'
 
                         );
-                    $(".modal-footer").append('<button id="cancel" class="button small green">Cancel</button>' +
-                        '<button id="delete-gr" class="button small red" onclick="DeleteGr()">Delete</button>');
+                    $(".modal-footer").append('<button id="cancel" class="button small green"onclick="CloseModal()">Cancel</button>' +
+                        '<button id="delete-gr" class="button small red" onclick="DeleteGr('+ id + ')">Delete</button>');
                 }
                 else DeleteGr();
             },
@@ -149,6 +157,40 @@ function RenderGroups(param) {
         }
     });
 }
+
+function DeleteGroup(param) {
+    if (param == undefined) param = "";
+    $.ajax({
+        type: "DELETE",
+        url: host + "/group/id" + param,
+        success: function (data) {
+            RenderGroups();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            alert('findAll: ' + textStatus);
+        }
+    });
+}
+
+function EditGroup(id, name, grad) {
+    var new_group = {"groupId" : id, "name": name, "graduationDate": grad};
+    console.log(JSON.stringify(new_group));
+    $.ajax({
+        type: "PUT",
+        url: host + "/groups",
+        data : JSON.stringify(new_group),
+        contentType : 'application/json',
+        success: function (data) {
+            RenderGroups();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            alert('findAll: ' + textStatus);
+        }
+    });
+}
+
 function DrawGroups(data) {
     for (var group in data) {
         $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" gr-id="' + data[group].groupId + '">' + data[group].name +'</span><span class="small-button edit"></span>'+'<span class="small-button delete"></span>' +

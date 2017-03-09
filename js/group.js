@@ -9,12 +9,10 @@ $(document).ready(function () {
     RenderGroupInfo(groupId);
     RenderStudents(groupId);
 
-    $('#update').click(function () {
-        $("#stud-body").empty();
-        RenderStudents("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
-
+    $('#add-btn').click(function () {
+        show_edit_center("add");
     });
-    $('.close-background').click(function () {
+    $('.close-background, #close-bg').click(function () {
 
         CloseModal();
     });
@@ -31,7 +29,7 @@ $(document).ready(function () {
 
     });
     $('#stud-body').on("click", ".small-button.edit",  function () {
-        var id = $(this).parent().find(".gr-name").attr("gr-id");
+        var id = $(this).parent().find(".gr-name").attr("st-id");
         var name = $(this).parent().find(".gr-name").html();
         var mark = $(this).parent().parent().find(".mid-td").html();
         var group = $("#current-group").html();
@@ -55,6 +53,24 @@ function CloseModal() {
         filter: "blur(0px)"
     })
 }
+function EditSt(id) {
+    $("#stud-body").empty();
+    var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
+    EditStudent(id, name, mark, group);
+    CloseModal();
+}
+function AddSt() {
+    $("#stud-body").empty();
+    var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
+    AddStudent(name, mark, group);
+    CloseModal();
+}
+
+function DeleteSt(id) {
+    $("#stud-body").empty();
+    DeleteStudent(id);
+    CloseModal();
+}
 function show_edit_center(type, id,name,mark,group) {
     $(".app").css({
         filter: "blur(2px)"
@@ -68,23 +84,45 @@ function show_edit_center(type, id,name,mark,group) {
         var groups =  JSON.parse(GetGroups());
         var selects = "";
         for (var gr in groups){
-            selects += "<option>" + groups[gr].name + "</option>"
+            selects += '<option gr-id="' + groups[gr].groupId + '">' + groups[gr].name + '</option>'
         }
         $(".modal-header").append('<p class="big-text">Edit Student ' + name + '</p>');
         $(".modal-body").append('<br><div class="input-name-holder">' +
-            '<input type="text" id="new-group-name" class="input r-border" placeholder="Group name" value="' + name +'">' +
+            '<input type="text" id="new-st-name" class="input r-border" placeholder="Student name" value="' + name +'">' +
 
             '<div class="input name"><p class="name-p">Name</p></div></div><br>'+
 
             '<div class="input-name-holder">' +
-            '<input type="text" name="" class="input r-border" placeholder="8.9" value="' + mark +'">' +
+            '<input type="text" id="new-st-mark" name="" class="input r-border" placeholder="8.9" value="' + mark +'">' +
             '<div class="input name"><p class="name-p">Mark</p></div></div><br>'+
 
-            '<select class="select-modal">' + selects+
+            '<select id="new-st-group" class="select-modal">' + selects+
             '</select>'+
             '</div><br><br>');
         $(".select-modal").val(group);
-        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr()">Edit</button>');
+        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditSt(' + id + ')">Edit</button>');
+    }
+    if (type === "add"){
+        var groups =  JSON.parse(GetGroups());
+        var selects = "";
+        for (var gr in groups){
+            selects += '<option gr-id="' + groups[gr].groupId + '">' + groups[gr].name + '</option>'
+        }
+        $(".modal-header").append('<p class="big-text">Add new student</p>');
+        $(".modal-body").append('<br><div class="input-name-holder">' +
+            '<input type="text" id="new-st-name" class="input r-border" placeholder="Student name"">' +
+
+            '<div class="input name"><p class="name-p">Name</p></div></div><br>'+
+
+            '<div class="input-name-holder">' +
+            '<input type="text" id="new-st-mark" name="" class="input r-border" placeholder="8.9">' +
+            '<div class="input name"><p class="name-p">Mark</p></div></div><br>'+
+
+            '<select id="new-st-group" class="select-modal">' + selects+
+            '</select>'+
+            '</div><br><br>');
+        $(".select-modal").val(group);
+        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="AddSt()">Add</button>');
     }
     if (type === "filter"){
         $(".modal-header").append('<p class="big-text">Filter by date</p>');
@@ -102,7 +140,7 @@ function show_edit_center(type, id,name,mark,group) {
         $(".modal-header").append('<p class="big-text">Delete student ' + name + '?</p>');
         $(".modal-body").append('<p class="some-info">Information will be deleted</p>');
         $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Cancel</button>' +
-            '<button id="delete-gr" class="button small red" onclick="DeleteGr()">Delete</button>');
+            '<button id="delete-gr" class="button small red" onclick="DeleteSt(' + id + ')">Delete</button>');
     }
 
 
@@ -178,7 +216,55 @@ function GetGroups() {
 
 
 }
+function DeleteStudent(param) {
+    if (param == undefined) param = "";
+    $.ajax({
+        type: "DELETE",
+        url: host + "/students/id" + param,
+        success: function (data) {
+            RenderStudents(getUrlParameter("group"));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            alert('findAll: ' + textStatus);
+        }
+    });
+}
+function EditStudent(studentId, name, gpa, groupId) {
+    var new_group = {"studentId" : studentId, "name" : name, "gpa": gpa, "groupId": groupId};
+    console.log(JSON.stringify(new_group));
+    $.ajax({
+        type: "PUT",
+        url: host + "/students",
+        data : JSON.stringify(new_group),
+        contentType : 'application/json',
+        success: function (data) {
+            RenderStudents(getUrlParameter("group"));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            alert('findAll: ' + textStatus);
+        }
+    });
+}
 
+function AddStudent(name, gpa, groupId) {
+    var new_group = {"name" : name, "gpa": gpa, "groupId": groupId};
+    console.log(JSON.stringify(new_group));
+    $.ajax({
+        type: "POST",
+        url: host + "/students",
+        data : JSON.stringify(new_group),
+        contentType : 'application/json',
+        success: function (data) {
+            RenderStudents(getUrlParameter("group"));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            alert('findAll: ' + textStatus);
+        }
+    });
+}
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
