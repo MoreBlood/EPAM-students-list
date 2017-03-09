@@ -9,19 +9,14 @@ $(document).ready(function () {
     RenderGroupInfo(groupId);
     RenderStudents(groupId);
 
-    $('#filter').click(function () {
-        show_edit();
-
-    });
-    $('.close-background').click(function () {
-        $(".modal_back").removeClass("visible-modal");
-
-    });
-
     $('#update').click(function () {
         $("#stud-body").empty();
         RenderStudents("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
 
+    });
+    $('.close-background').click(function () {
+
+        CloseModal();
     });
     $('#stud-body').on("mouseenter", ".left-td.first",  function () {
         $(this).find(".small-button").css({
@@ -36,37 +31,83 @@ $(document).ready(function () {
 
     });
     $('#stud-body').on("click", ".small-button.edit",  function () {
-        console.log($(this).parent().find(".gr-name").attr("gr-id"));
+        var id = $(this).parent().find(".gr-name").attr("gr-id");
+        var name = $(this).parent().find(".gr-name").html();
+        var mark = $(this).parent().parent().find(".mid-td").html();
+        var group = $("#current-group").html();
+
+        show_edit_center("edit", id, name, mark, group);
 
     });
     $('#stud-body').on("click", ".small-button.delete",  function () {
-        console.log($(this).parent().find(".gr-name").attr("gr-id"));
-
-    });
-    $('#stud-body').on("click", "td.left-td.first",  function (e) {
-        if (e.target !== this)
-            return;
-        window.location.href = "group.html?group=" +$(this).parent().find(".gr-name").attr("gr-id");
-
+        var id = $(this).parent().find(".gr-name").attr("st-id");
+        var name = $(this).parent().find(".gr-name").html();
+        show_edit_center("delete", id, name);
     });
 
 
 
 });
 
-function show_edit() {
+function CloseModal() {
+    $(".modal_back").removeClass("visible-modal");
+    $(".app").css({
+        filter: "blur(0px)"
+    })
+}
+function show_edit_center(type, id,name,mark,group) {
+    $(".app").css({
+        filter: "blur(2px)"
+    });
+
+    $(".modal-body").empty();
+    $(".modal-footer").empty();
+    $(".modal-header").empty();
+
+    if (type === "edit"){
+        var groups =  JSON.parse(GetGroups());
+        var selects = "";
+        for (var gr in groups){
+            selects += "<option>" + groups[gr].name + "</option>"
+        }
+        $(".modal-header").append('<p class="big-text">Edit Student ' + name + '</p>');
+        $(".modal-body").append('<br><div class="input-name-holder">' +
+            '<input type="text" id="new-group-name" class="input r-border" placeholder="Group name" value="' + name +'">' +
+
+            '<div class="input name"><p class="name-p">Name</p></div></div><br>'+
+
+            '<div class="input-name-holder">' +
+            '<input type="text" name="" class="input r-border" placeholder="8.9" value="' + mark +'">' +
+            '<div class="input name"><p class="name-p">Mark</p></div></div><br>'+
+
+            '<select class="select-modal">' + selects+
+            '</select>'+
+            '</div><br><br>');
+        $(".select-modal").val(group);
+        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr()">Edit</button>');
+    }
+    if (type === "filter"){
+        $(".modal-header").append('<p class="big-text">Filter by date</p>');
+        $(".modal-body").append('<br><div class="input-name-holder">' +
+            '<input type="text" id="date-start" class="input r-border" placeholder="1970-01-01">' +
+            '<div class="input name"><p class="name-p">From</p></div>' +
+            '</div><br>' +
+            '<div class="input-name-holder">' +
+            '<input type="text" id="date-end" class="input r-border" placeholder="2007-01-01">' +
+            '<div class="input name"><p class="name-p">To</p></div>' +
+            '</div><br>');
+        $(".modal-footer").append('<button id="update-gr" class="button small gray" onclick="UpdateGr()">Edit</button>');
+    }
+    if (type === "delete"){
+        $(".modal-header").append('<p class="big-text">Delete student ' + name + '?</p>');
+        $(".modal-body").append('<p class="some-info">Information will be deleted</p>');
+        $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Cancel</button>' +
+            '<button id="delete-gr" class="button small red" onclick="DeleteGr()">Delete</button>');
+    }
+
+
     $(".modal_back").addClass("visible-modal");
-    $("#filter-edit").css({
-        top: event.pageY,
-        left: event.pageX,
-        display: 'flex'
-    });
-    if (event.pageY + $("#filter-edit").height() > $(window).height()) $("#filter-edit").css({
-        top: $(window).height() - $("#filter-edit").height() * 1.5
-    });
-    if (event.pageX + $("#filter-edit").width() > $(window).width()) $("#filter-edit").css({
-        left: $(window).width() - $("#filter-edit").width() * 1.5
-    });
+
 }
 
 function RenderStudents(param) {
@@ -118,10 +159,11 @@ function DrawGroups(data) {
 }
 
 
-function GetAvgStudentMark(groupId) {
+function GetGroups() {
     var resp = $.ajax({
         type: "GET",
-        url: host + "/students/gpa?groupId=" + groupId,
+        url: host + "/groups",
+        dataType : "json",
         async: false,
         success: function (data) {
             //alert(data);

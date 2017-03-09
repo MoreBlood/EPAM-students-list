@@ -37,7 +37,7 @@ input.input {
     border-radius: 5px;
     border: 1px solid #E5E5E5;
     font-size: 20px;
-    padding-left: 20px;
+    padding-left: 15px;
     color: #95989A;
     font-weight: 100;
 }
@@ -49,7 +49,7 @@ input.input.modal {
 
 .input-name-holder {
     display: flex;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     flex-basis: auto;
     flex-wrap: wrap;
     /* padding-left: 30px; */
@@ -76,7 +76,7 @@ input.input.modal {
 :-ms-input-placeholder      {color:#ececec;}
 
 .modal-body {
-    margin-top: 0px;
+    margin-top: -20px;
     /* margin-left: 60px; */
 }
 
@@ -93,12 +93,12 @@ p.name-p {
 }
 
 select.select-modal {
-    height: 50px;
+    height: 35px;
     width: 180px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid #E5E5E5;
     font-size: 25px;
-    padding-left: 20px !important;
+    padding-left: 15px !important;
     color: #95989A;
     font-weight: 100;
     background: white;
@@ -108,8 +108,9 @@ select.select-modal {
     background: url(../img/select.svg);
     background-repeat: no-repeat;
     background-size: 20px;
-    background-position-x: 140px;
-    background-position-y: 20px;
+    background-position-x: 147px;
+    background-position-y: 13px;
+    font-size: 20px;
 }
 
 input[type="radio"] {
@@ -137,6 +138,7 @@ input.radio {
     border-top: 1px solid rgba(128, 128, 128, 0.16);
     justify-content: flex-end;
     display: flex;
+    padding-right: 25px;
 }
 
 button.button {
@@ -196,6 +198,7 @@ select.select-modal:hover {
     width: 100%;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s cubic-bezier(1, 0.1, 1, 1);
 }
 
 .header {
@@ -289,13 +292,14 @@ p.some-info.bold {
 button.button.small {
     height: 37px;
     margin-left: 20px;
-    margin-right: 20px;
-    padding-left: 10px;
+    /* margin-right: 20px; */
+    padding-left: 20px;
     padding-right: 20px;
 }
 
 button.button.small.add {
     color: #00C9FF;
+    margin-right: 40px;
 }
 
 span.icon.add-icon {
@@ -407,11 +411,13 @@ th.datepicker-switch {
 .modal-window.change {
     position: absolute;
     background: white;
+    ]: 145px
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .modal-window.change {
-    width: 335px;
-    /* padding: 20px; */
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.19);
 }
 
@@ -461,3 +467,17 @@ a.href-groups:hover {
     color: #ffffff;
     text-shadow: 0 0 13px white;
 }
+
+button.button.small.green {
+    color: #00db59;
+}
+
+button.button.small.red {
+    color: red;
+}
+
+th#filter {
+    cursor: pointer;
+}
+th#filter:hover {color: rgba(4, 4, 4, 0.33);}
+    
