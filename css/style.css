@@ -183,6 +183,7 @@ button.button {
     height: 50px;
     flex-shrink: 1;
     min-width: auto;
+    white-space: pre;
 }
 
 .close-modal {
@@ -287,6 +288,7 @@ span.arrow {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    justify-content: center;
 }
 
 .controls-info {
@@ -304,6 +306,7 @@ p.some-info {
     color: #95989A;
     font-weight: 200;
     /* margin-bottom: 7px; */
+    white-space: nowrap;
 }
 
 p.big-year {
