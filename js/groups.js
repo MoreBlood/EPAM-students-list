@@ -3,12 +3,7 @@ $(document).ready(function () {
 
 
     RenderGroups();
-    $('#date-end').datepicker({
-        format: "yyyy-mm-dd"
-    });
-    $('#date-start').datepicker({
-        format: "yyyy-mm-dd"
-    });
+
     $('#filter').click(function () {
         show_edit_center("filter");
 
@@ -112,7 +107,13 @@ function show_edit_center(type, id,name,grad) {
             '<input type="text" id="date-end" class="input r-border" placeholder="2007-01-01">' +
             '<div class="input name"><p class="name-p">To</p></div>' +
             '</div><br>');
-        $(".modal-footer").append('<button id="update-gr" class="button small gray" onclick="UpdateGr()">Edit</button>');
+        $('#date-end').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $('#date-start').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $(".modal-footer").append('<button id="update-gr" class="button small gray" onclick="UpdateGr()">Filter</button>');
     }
     if (type === "delete"){
         $(".modal-header").append('<p class="big-text">Delete Group ' + name + '?</p>');

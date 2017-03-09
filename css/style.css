@@ -12,7 +12,7 @@
 	padding-left: 5px;
 }
 td {
-    cursor: pointer;
+    /* cursor: pointer; */
     text-align: center;
 }
 
@@ -25,7 +25,7 @@ p.big-text {
 .modal-header {
     padding: 15px;
     padding-left: 30px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.16);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.10);
     /* padding-bottom: 0px; */
     /* padding-top: 0px; */
     position: relative;
@@ -82,7 +82,7 @@ input.input.modal {
 }
 
 body {
-    font-family: Helvetica Neue;
+    /* font-family: Helvetica Neue; */
     /* margin: 0 auto; */
     display: flex;
     align-items: center;
@@ -136,7 +136,7 @@ input.radio {
 .modal-footer {
     padding: 15px;
     padding-left: 25px;
-    border-top: 1px solid rgba(128, 128, 128, 0.16);
+    border-top: 1px solid rgba(128, 128, 128, 0.1);
     justify-content: flex-end;
     display: flex;
     padding-right: 25px;
@@ -182,6 +182,7 @@ button.button:active {
 input:focus { outline: none; }
 button:focus { outline: none; }
 select:focus { outline: none; }
+span:focus { outline: none; }
 
 .close.modal:active {
     background: rgba(0, 0, 0, 1);
@@ -373,6 +374,7 @@ th.st-th-3 {
 td.left-td.first.mid {
     text-align: center;
     padding-left: 0px;
+    cursor: pointer;
 }
 
 table.table-gr {
@@ -484,3 +486,59 @@ th#filter {
 }
 th#filter:hover {color: rgba(4, 4, 4, 0.33);}
     
+
+p#num-stud {margin-right: 40px;}
+
+div#slider-range {}
+
+div#slider-range {
+    height: 3px;
+    background: #00c8fd;
+    position: relative;
+}
+
+span.ui-slider-handle.ui-corner-all.ui-state-default {
+    background: #ffffff;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    z-index: 2;
+    width: 16px;
+    height: 16px;
+    cursor: default;
+    -ms-touch-action: none;
+    touch-action: none;
+    border-radius: 50%;
+    top: -6px;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+    margin-left: -6px;
+}
+
+.ui-slider-range.ui-corner-all.ui-widget-header {
+    background: #77e2ff;
+    height: 3px;
+    position: relative;
+}
+
+input#mark-range-left {
+    width: 69px;
+    border-right: 0px;
+    text-align: center;
+    padding: 0;
+}
+
+input#mark-range-right {
+    border-radius: 0px 5px 5px 0px;
+    border-left: 0px;
+    width: 70px;
+    text-align: center;
+    padding: 0;
+}
+
+input#mark-range-between {
+    width: 50px;
+    border-radius: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
