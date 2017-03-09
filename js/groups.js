@@ -129,7 +129,7 @@ function show_edit_center(type, id,name,grad) {
                     $(".modal-footer").append('<button id="cancel" class="button small green"onclick="CloseModal()">Cancel</button>' +
                         '<button id="delete-gr" class="button small red" onclick="DeleteGr('+ id + ')">Delete</button>');
                 }
-                else DeleteGr();
+                else DeleteGr(id);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR, textStatus, errorThrown);
