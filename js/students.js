@@ -35,7 +35,7 @@ $(document).ready(function () {
         var id = $(this).parent().find(".gr-name").attr("st-id");
         var name = $(this).parent().find(".gr-name").html();
         var mark = $(this).parent().parent().find(".mid-td").html();
-        var group = $("#current-group").html();
+        var group = $(this).parent().parent().find(".left-td.first.mid").html();
 
         show_edit_center("edit", id, name, mark, group);
 
