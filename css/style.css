@@ -24,11 +24,15 @@ p.big-text {
     font-size: 20px;
     color: #95989A;
     font-weight: 500;
+    max-width: 301px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-header {
     padding: 15px;
-    padding-left: 30px;
+    padding-left: 25px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.10);
     /* padding-bottom: 0px; */
     /* padding-top: 0px; */
@@ -45,6 +49,7 @@ input.input {
     padding-left: 15px;
     color: #95989A;
     font-weight: 100;
+    text-overflow: ellipsis;
 }
 
 input.input.modal {
@@ -385,6 +390,11 @@ td.left-td.first {
     text-align: left;
     vertical-align: inherit;
     cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
 }
 
 .year-separator {
@@ -412,8 +422,9 @@ th.st-th-3 {
 
 td.left-td.first.mid {
     text-align: center;
-    padding-left: 0px;
+    padding-left: 10px;
     cursor: pointer;
+    padding-right: 13px;
 }
 
 table.table-gr {
@@ -485,6 +496,7 @@ input.r-border {
     background: #00c8fe;
     mask: url(../img/edit.svg);
     margin-right: 20px;
+    clear: none;
 }
 
 .small-button.delete {
@@ -494,8 +506,16 @@ input.r-border {
 }
 
 span.gr-name {
-    width: 100%;
-    vertical-align: sub;
+    width: calc(100% - 100px);
+    overflow: hidden;
+    
+    ]: 20px
+    white-space: inherit;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
 }
 
 button#update {
@@ -591,4 +611,18 @@ input#mark-range-between {
     border-radius: 0px;
     border-left: 0px;
     border-right: 0px;
+}
+
+p.gr-name {
+    /* width: calc(100% - 100px); */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    clear: none;
+}
+
+p#current-group {
+    max-width: 379px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
