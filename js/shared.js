@@ -1,3 +1,7 @@
+$(window).load(function() {
+    $(".se-pre-con").fadeOut("slow");;
+});
+
 var host = "http://localhost:8088";
 function CloseModal() {
     $(".modal_back").removeClass("visible-modal");
