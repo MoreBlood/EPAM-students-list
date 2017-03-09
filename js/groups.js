@@ -1,32 +1,23 @@
-var host = "http://localhost:8088";
 $(document).ready(function () {
-
-
     RenderGroups();
-
     $('#filter').click(function () {
         show_edit_center("filter");
-
     });
     $('#add-btn').click(function () {
         show_edit_center("add");
     });
     $('.close-background, .close-modal').click(function () {
-
         CloseModal();
     });
-
     $('#stud-body').on("mouseenter", ".left-td.first",  function () {
         $(this).find(".small-button").css({
             opacity : 0.4
         })
-
     });
     $('#stud-body').on("mouseleave", ".left-td.first",  function () {
         $(this).find(".small-button").css({
             opacity : 0
         })
-
     });
     $('#stud-body').on("click", ".small-button.edit",  function () {
         var id = $(this).parent().find(".gr-name").attr("gr-id");
@@ -41,48 +32,11 @@ $(document).ready(function () {
         show_edit_center("delete", id, name);
     });
     $('#stud-body').on("click", "td.left-td.first",  function (e) {
-
-        //console.log($(event.target).attr('class'));
         if ( $(event.target).attr('class').split(' ')[0] == "small-button")
             return;
         window.location.href = "group.html?group=" +$(this).parent().find(".gr-name").attr("gr-id");
-
     });
-
-
-
 });
-
-function CloseModal() {
-    $(".modal_back").removeClass("visible-modal");
-    $(".app").css({
-        filter: "blur(0px)"
-    })
-}
-
-function DeleteGr(id) {
-        $("#stud-body").empty();
-        DeleteGroup(id);
-        CloseModal();
-}
-function EditGr(id) {
-    $("#stud-body").empty();
-    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
-    EditGroup(id, name, grad);
-    CloseModal();
-}
-function AddGr() {
-    $("#stud-body").empty();
-    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
-    AddGroup(name, grad);
-    CloseModal();
-}
-function UpdateGr() {
-    $("#stud-body").empty();
-    RenderGroups("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
-    CloseModal();
-}
-
 function show_edit_center(type, id,name,grad) {
     $(".app").css({
         filter: "blur(2px)"
@@ -104,7 +58,7 @@ function show_edit_center(type, id,name,grad) {
         $("#new-group-grad").datepicker({
             format: "yyyy-mm-dd"
         });
-        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr(' + id + ')">Edit</button>');
+        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr(' + id + ')">Save</button>');
     }
     if (type === "add"){
         $(".modal-header").append('<p class="big-text">Add new Group</p>');
@@ -149,7 +103,7 @@ function show_edit_center(type, id,name,grad) {
                     $(".modal-body").append('<div class="input-name-holder">' +
                         '<p class="some-info">' +data.length + " students will be also deleted"+ '</p>'
 
-                        );
+                    );
                     $(".modal-footer").append('<button id="cancel" class="button small green"onclick="CloseModal()">Cancel</button>' +
                         '<button id="delete-gr" class="button small red" onclick="DeleteGr('+ id + ')">Delete</button>');
                 }
@@ -165,115 +119,10 @@ function show_edit_center(type, id,name,grad) {
     $(".modal_back").addClass("visible-modal");
 
 }
-
-function RenderGroups(param) {
-    if (param == undefined) param = "";
-    $.ajax({
-        type: "GET",
-        url: host + "/groups" + param,
-        dataType: "json",
-        success: function (data) {
-            DrawGroups(data);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
-        }
-    });
-}
-
-function DeleteGroup(param) {
-    if (param == undefined) param = "";
-    $.ajax({
-        type: "DELETE",
-        url: host + "/group/id" + param,
-        success: function (data) {
-            RenderGroups();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
-        }
-    });
-}
-
-function EditGroup(id, name, grad) {
-    var new_group = {"groupId" : id, "name": name, "graduationDate": grad};
-    console.log(JSON.stringify(new_group));
-    $.ajax({
-        type: "PUT",
-        url: host + "/groups",
-        data : JSON.stringify(new_group),
-        contentType : 'application/json',
-        success: function (data) {
-            RenderGroups();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
-        }
-    });
-}
-
-function AddGroup(name, grad) {
-    var new_group = {"name": name, "graduationDate": grad};
-    console.log(JSON.stringify(new_group));
-    $.ajax({
-        type: "POST",
-        url: host + "/groups",
-        data : JSON.stringify(new_group),
-        contentType : 'application/json',
-        success: function (data) {
-            RenderGroups();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
-        }
-    });
-}
-
 function DrawGroups(data) {
     for (var group in data) {
         $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" gr-id="' + data[group].groupId + '">' + data[group].name +'</span><span class="small-button edit"></span>'+'<span class="small-button delete"></span>' +
             '</td>' + '<td class="left-td first mid">' + data[group].graduationDate + '</td>' +
             '<td class="mid-td">' + (Math.round(GetAvgMark(data[group].groupId) * 100) / 100) + '</td> </tr>')
     }
-}
-function GetAvgMark(groupId) {
-    var resp = $.ajax({
-        type: "GET",
-        url: host + "/students/gpa?groupId=" + groupId,
-        async: false,
-        success: function (data) {
-            //alert(data);
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
-        }
-    });
-    return resp.responseText;
-
-
-}
-
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
-function PopUpCreator() {
-
 }

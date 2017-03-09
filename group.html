@@ -1,17 +1,15 @@
 <!doctype html>
 <html ng-app="workerlistapp">
 <head>
-<!-- build:css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/modal.css">
-<!-- endbuild -->
-<title>Group</title>
-<meta charset="utf-8">
+    <title>Group</title>
+    <meta charset="utf-8">
 </head>
 <body>
-<div class="modal_back not-visible-modal" >
-    <div class="close-background" ></div>
+<div class="modal_back not-visible-modal">
+    <div class="close-background"></div>
     <div class="modal-window change" id="filter-edit">
         <div class="modal-header">
             <p class="big-text">Filter by date</p>
@@ -36,30 +34,37 @@
 </div>
 <div class="app">
     <div class="header">
-        <a class="href-groups" href="students.html"><p class="current-pos bold" id="current-univer">BST</p>&nbsp<p class="current-pos light">University</p></a><span class="arrow"></span><a class="href-groups" href="groups.html"><p class="current-pos bold" id="current-faculty">EIS</p>&nbsp<p class="current-pos light">Faculty</p></a><span class="arrow"></span><p class="current-pos bold" id="current-group">AI-12</p>&nbsp<p class="current-pos light">Group</p>
+        <a class="href-groups" href="students.html"><p class="current-pos bold" id="current-univer">BST</p>&nbsp<p
+                class="current-pos light">University</p></a><span class="arrow"></span><a class="href-groups"
+                                                                                          href="groups.html"><p
+            class="current-pos bold" id="current-faculty">EIS</p>&nbsp<p class="current-pos light">Faculty</p></a><span
+            class="arrow"></span>
+        <p class="current-pos bold" id="current-group">AI-12</p>&nbsp<p class="current-pos light">Group</p>
     </div>
     <div class="info">
-    <div class="info-right">
-        <p class="some-info">Some info about group</p>
-        
-        <div class="graduate-block">
-            <div class="date start">
-                <p class="big-year start" id="start-year">2013</p>
-                <p class="info-year" id="end-year">start</p>
-            </div>
-            <div class="year-separator"></div>
-            <div class="date end">
-                <p class="big-year end">2016</p>
-                <p class="info-year">graduate</p>
-            </div>
+        <div class="info-right">
+            <p class="some-info">Some info about group</p>
+
+            <div class="graduate-block">
+                <div class="date start">
+                    <p class="big-year start" id="start-year">2013</p>
+                    <p class="info-year" id="end-year">start</p>
+                </div>
+                <div class="year-separator"></div>
+                <div class="date end">
+                    <p class="big-year end">2016</p>
+                    <p class="info-year">graduate</p>
+                </div>
             </div>
         </div>
         <div class="controls-info">
             <button class="button small add" id="add-btn"><span class="icon add-icon"></span>Add student</button>
-            <p class="some-info"  >AVG mark:&nbsp<p class="some-info bold" id="avg-mark">2.28</p></p>&nbsp&nbsp&nbsp&nbsp
-            <p class="some-info" >Number of students:&nbsp<p class="some-info bold" id="num-stud">27</p></p>
+            <p class="some-info">AVG mark:&nbsp
+            <p class="some-info bold" id="avg-mark">2.28</p></p>&nbsp&nbsp&nbsp&nbsp
+            <p class="some-info">Number of students:&nbsp
+            <p class="some-info bold" id="num-stud">27</p></p>
         </div>
-        
+
     </div>
     <div class="table-holder">
         <table class="table-gr">
@@ -76,7 +81,8 @@
     </div>
 </div>
 
-            <script src="js/jquery.min.js"></script>
-            <script src="js/group.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/group.js"></script>
 </body>
 </html>
