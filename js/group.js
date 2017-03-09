@@ -62,6 +62,7 @@ function EditSt(id) {
 function AddSt() {
     $("#stud-body").empty();
     var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
+    group = getUrlParameter("group");
     AddStudent(name, mark, group);
     CloseModal();
 }
@@ -118,9 +119,9 @@ function show_edit_center(type, id,name,mark,group) {
             '<input type="text" id="new-st-mark" name="" class="input r-border" placeholder="8.9">' +
             '<div class="input name"><p class="name-p">Mark</p></div></div><br>'+
 
-            '<select id="new-st-group" class="select-modal">' + selects+
+            '<select style="display: none" id="new-st-group" class="select-modal">' + selects+
             '</select>'+
-            '</div><br><br>');
+            '</div><br style="display: none"><br style="display: none">');
         $(".select-modal").val(groups[0].name);
         $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="AddSt()">Add</button>');
     }
