@@ -220,6 +220,9 @@ button.button:active {
     background-color: #c7c7c7;
     color: white !important;
 }
+button.button:active  span.icon.add-icon {
+    background-color: white;
+}
 
 input:focus {
     outline: none;
@@ -271,6 +274,7 @@ select.select-modal:hover {
     color: white;
     padding-left: 40px;
     font-size: 25px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 span.arrow {
@@ -364,8 +368,9 @@ button.button.small.add {
 span.icon.add-icon {
     height: 17px;
     width: 17px;
-    background: url(../img/add.svg);
+    -webkit-mask-image: url(../img/add.svg);
     margin-right: 12px;
+    background: #00C9FF;
 }
 
 table.table.table-striped {

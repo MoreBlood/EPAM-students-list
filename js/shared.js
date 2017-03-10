@@ -1,9 +1,10 @@
 $(document).ready(function () {
-
+    var navHeight = $('.navigation').height();
+    
     $('.table-holder').css({
-        marginTop : $('.navigation').height()
+        marginTop :navHeight
     });
-    $('.table-gr').stickyTableHeaders({fixedOffset: $('.navigation').height()});
+    $('.table-gr').stickyTableHeaders({fixedOffset: navHeight});
 });
 $(window).load(function () {
     $(".se-pre-con").fadeOut("slow");
