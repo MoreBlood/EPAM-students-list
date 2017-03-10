@@ -41,24 +41,21 @@ function show_edit_center(type, id,name,grad) {
     $(".app").css({
         filter: "blur(2px)"
     });
-
-    $(".modal-body").empty();
-    $(".modal-footer").empty();
-    $(".modal-header").empty();
+    $(".modal-body, .modal-footer, .modal-header ").empty();
 
     if (type === "edit"){
         $(".modal-header").append('<p class="big-text">Edit Group ' + name + ' name</p>');
         $(".modal-body").append('<br><div class="input-name-holder">' +
-            '<input type="text" id="new-group-name" class="input r-border" placeholder="Group name" value="' + name +'">' +
+            '<input type="text" required id="new-group-name" class="input r-border" placeholder="Group name" value="' + name +'">' +
             '<div class="input name"><p class="name-p">Name</p></div></div>'+
             '<br><div class="input-name-holder">' +
-            '<input type="text" id="new-group-grad" class="input r-border" placeholder="2007-05-09" value="' + grad +'">' +
+            '<input type="text" id="new-group-grad" required class="input r-border" placeholder="2007-05-09" value="' + grad +'">' +
             '<div class="input name"><p class="name-p">Graduation</p></div>'+
             '</div><br>');
         $("#new-group-grad").datepicker({
             format: "yyyy-mm-dd"
         });
-        $(".modal-footer").append('<button id="edit-gr" class="button small gray" onclick="EditGr(' + id + ')">Save</button>');
+        $(".modal-footer").append('<button id="edit-gr" type="submit" class="button small gray" onclick="EditGr(' + id + ')">Save</button>');
     }
     if (type === "add"){
         $(".modal-header").append('<p class="big-text">Add new Group</p>');
@@ -110,8 +107,7 @@ function show_edit_center(type, id,name,grad) {
                 else DeleteGr(id);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR, textStatus, errorThrown);
-                alert('Нет такой группы с id: ' + param);
+                DrawException(jqXHR);
             }
         });
 

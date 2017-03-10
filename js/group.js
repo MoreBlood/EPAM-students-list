@@ -41,9 +41,7 @@ function show_edit_center(type, id,name,mark,group) {
         filter: "blur(2px)"
     });
 
-    $(".modal-body").empty();
-    $(".modal-footer").empty();
-    $(".modal-header").empty();
+    $(".modal-body, .modal-footer, .modal-header ").empty();
 
     if (type === "edit"){
         var groups =  JSON.parse(GetGroups());
@@ -103,7 +101,7 @@ function show_edit_center(type, id,name,mark,group) {
     }
     if (type === "delete"){
         $(".modal-header").append('<p class="big-text">Delete student ' + name + '?</p>');
-        $(".modal-body").append('<p class="some-info">Information will be deleted</p>');
+        $(".modal-body").append('<p class="some-info">You can\'t undo this!</p>');
         $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Cancel</button>' +
             '<button id="delete-gr" class="button small red" onclick="DeleteSt(' + id + ')">Delete</button>');
     }
@@ -113,6 +111,7 @@ function show_edit_center(type, id,name,mark,group) {
 
 }
 function RenderStudents(param) {
+    $("#stud-body").empty();
     if (param == undefined) param = "";
     $.ajax({
         type: "GET",
@@ -122,8 +121,7 @@ function RenderStudents(param) {
             DrawGroups(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('Нет такой группы с id: ' + param);
+            DrawException(jqXHR);
         }
     });
 }

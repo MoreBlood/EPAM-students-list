@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var navHeight = $('.navigation').height();
-    
+
     $('.table-holder').css({
         marginTop :navHeight
     });
@@ -18,48 +18,40 @@ function CloseModal() {
     })
 }
 function EditSt(id) {
-    $("#stud-body").empty();
     var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
     EditStudent(id, name, mark, group);
     CloseModal();
 }
 function AddSt() {
-    $("#stud-body").empty();
     var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
     group = getUrlParameter("group");
     AddStudent(name, mark, group);
     CloseModal();
 }
 function DeleteSt(id) {
-    $("#stud-body").empty();
     DeleteStudent(id);
     CloseModal();
 }
 function filterStud() {
-    $("#stud-body").empty();
     RenderStudents("?minGpa=" + $("#mark-range-left").val() + "&maxGpa=" + $("#mark-range-right").val());
     CloseModal();
 
 }
 function DeleteGr(id) {
-    $("#stud-body").empty();
     DeleteGroup(id);
     CloseModal();
 }
 function EditGr(id) {
-    $("#stud-body").empty();
     var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
     EditGroup(id, name, grad);
     CloseModal();
 }
 function AddGr() {
-    $("#stud-body").empty();
     var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
     AddGroup(name, grad);
     CloseModal();
 }
 function UpdateGr() {
-    $("#stud-body").empty();
     RenderGroups("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
     CloseModal();
 }
@@ -81,8 +73,8 @@ function GetGroups() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
     return resp.responseText;
@@ -98,8 +90,8 @@ function DeleteStudent(param) {
             RenderStudents(getUrlParameter("group"));
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
 }
@@ -115,8 +107,8 @@ function EditStudent(studentId, name, gpa, groupId) {
             RenderStudents(getUrlParameter("group"));
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
 }
@@ -132,12 +124,12 @@ function AddStudent(name, gpa, groupId) {
             RenderStudents(getUrlParameter("group"));
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
         }
     });
 }
 function RenderGroups(param) {
+    $("#stud-body").empty();
     if (param == undefined) param = "";
     $.ajax({
         type: "GET",
@@ -147,8 +139,8 @@ function RenderGroups(param) {
             DrawGroups(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
 }
@@ -161,8 +153,8 @@ function DeleteGroup(param) {
             RenderGroups();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
 }
@@ -178,8 +170,8 @@ function EditGroup(id, name, grad) {
             RenderGroups();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
 }
@@ -195,8 +187,8 @@ function AddGroup(name, grad) {
             RenderGroups();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
 }
@@ -210,8 +202,8 @@ function GetAvgMark(groupId) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
     return resp.responseText;
@@ -227,8 +219,7 @@ function RenderGroupInfo(id) {
             DrawGroupInfo(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('Нет такой группы с id: ' + id);
+            DrawException(jqXHR);
         }
     });
 }
@@ -241,8 +232,8 @@ function GetGroupById(id) {
         success: function (data) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
-            alert('findAll: ' + textStatus);
+            DrawException(jqXHR);
+            
         }
     });
     return JSON.parse(resp.responseText).name;
@@ -261,4 +252,28 @@ function getUrlParameter(sParam) {
         }
     }
 }
+
+function DrawException(exception) {
+    $(".app").css({
+        filter: "blur(2px)"
+    });
+
+    $(".modal-body, .modal-footer, .modal-header ").empty();
+        var typeOfError = "Please check your input";
+        var exceptionText = exception.responseText;
+
+        if (exceptionText != undefined) exceptionText = exceptionText.replace('IllegalArgumentException: ', '');
+        else {
+            exceptionText = "No connection";
+            typeOfError = "Critical error"
+        }
+        
+        $(".modal-header").append('<p class="big-text">' + typeOfError + '</p>');
+        $(".modal-body").append('<p class="some-info break">' + exceptionText +'</p>');
+        $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Ok</button>');
+
+    $(".modal_back").addClass("visible-modal");
+
+}
+
 
