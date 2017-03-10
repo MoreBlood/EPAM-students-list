@@ -1,8 +1,15 @@
-$(window).load(function() {
-    $(".se-pre-con").fadeOut("slow");;
-});
+$(document).ready(function () {
 
+    $('.table-holder').css({
+        marginTop : $('.navigation').height()
+    });
+    $('.table-gr').stickyTableHeaders({fixedOffset: $('.navigation').height()});
+});
+$(window).load(function () {
+    $(".se-pre-con").fadeOut("slow");
+});
 var host = "http://localhost:8088";
+
 function CloseModal() {
     $(".modal_back").removeClass("visible-modal");
     $(".app").css({
@@ -32,6 +39,35 @@ function filterStud() {
     RenderStudents("?minGpa=" + $("#mark-range-left").val() + "&maxGpa=" + $("#mark-range-right").val());
     CloseModal();
 
+}
+function DeleteGr(id) {
+    $("#stud-body").empty();
+    DeleteGroup(id);
+    CloseModal();
+}
+function EditGr(id) {
+    $("#stud-body").empty();
+    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
+    EditGroup(id, name, grad);
+    CloseModal();
+}
+function AddGr() {
+    $("#stud-body").empty();
+    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
+    AddGroup(name, grad);
+    CloseModal();
+}
+function UpdateGr() {
+    $("#stud-body").empty();
+    RenderGroups("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
+    CloseModal();
+}
+function DrawGroupInfo(data) {
+
+    $("#current-group").html(data.name);
+    $(".big-year.end").html((data.graduationDate).substr(0, 4));
+    $(".big-year.start").html((data.graduationDate).substr(0, 4) - 4);
+    document.title = data.name + " Group";
 }
 function GetGroups() {
     var resp = $.ajax({
@@ -99,42 +135,6 @@ function AddStudent(name, gpa, groupId) {
             alert('findAll: ' + textStatus);
         }
     });
-}
-function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-function DeleteGr(id) {
-    $("#stud-body").empty();
-    DeleteGroup(id);
-    CloseModal();
-}
-function EditGr(id) {
-    $("#stud-body").empty();
-    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
-    EditGroup(id, name, grad);
-    CloseModal();
-}
-function AddGr() {
-    $("#stud-body").empty();
-    var name = $('#new-group-name').val(), grad = $('#new-group-grad').val();
-    AddGroup(name, grad);
-    CloseModal();
-}
-function UpdateGr() {
-    $("#stud-body").empty();
-    RenderGroups("?minGradDate=" + $("#date-start").val() + "&maxGradDate=" + $("#date-end").val());
-    CloseModal();
 }
 function RenderGroups(param) {
     if (param == undefined) param = "";
@@ -231,13 +231,6 @@ function RenderGroupInfo(id) {
         }
     });
 }
-function DrawGroupInfo(data) {
-
-    $("#current-group").html(data.name);
-    $(".big-year.end").html((data.graduationDate).substr(0, 4));
-    $(".big-year.start").html((data.graduationDate).substr(0, 4) - 4);
-    document.title = data.name + " Group";
-}
 function GetGroupById(id) {
     var resp = $.ajax({
         type: "GET",
@@ -252,6 +245,19 @@ function GetGroupById(id) {
         }
     });
     return JSON.parse(resp.responseText).name;
-
-
 }
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+}
+

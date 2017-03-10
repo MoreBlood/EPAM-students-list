@@ -375,6 +375,7 @@ table.table.table-striped {
 thead {
     background: #F2F2F2;
     color: rgba(149, 152, 154, 0.42);
+    width: 100%;
 }
 
 .tr-gr {
@@ -640,4 +641,15 @@ p#current-group {
     white-space: pre;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.navigation {
+    position: fixed;
+    width: 100%;
+    background: white;
+    z-index: 4;
+}
+
+thead.tableFloatingHeaderOriginal {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
