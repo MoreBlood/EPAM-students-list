@@ -22,12 +22,7 @@ function EditSt(id) {
     EditStudent(id, name, mark, group);
     CloseModal();
 }
-function AddSt() {
-    var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
-    group = getUrlParameter("group");
-    AddStudent(name, mark, group);
-    CloseModal();
-}
+
 function DeleteSt(id) {
     DeleteStudent(id);
     CloseModal();
@@ -257,8 +252,9 @@ function DrawException(exception) {
     $(".app").css({
         filter: "blur(2px)"
     });
-
+    console.log(exception);
     $(".modal-body, .modal-footer, .modal-header ").empty();
+
         var typeOfError = "Please check your input";
         var exceptionText = exception.responseText;
 
@@ -267,7 +263,7 @@ function DrawException(exception) {
             exceptionText = "No connection";
             typeOfError = "Critical error"
         }
-        
+
         $(".modal-header").append('<p class="big-text">' + typeOfError + '</p>');
         $(".modal-body").append('<p class="some-info break">' + exceptionText +'</p>');
         $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Ok</button>');

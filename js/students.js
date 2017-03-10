@@ -151,3 +151,8 @@ function DrawGroups(data) {
     $("#num-stud").html(data.length);
     $("#avg-mark").html((avg/data.length).toFixed(2));
 }
+function AddSt() {
+    var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
+    AddStudent(name, mark, group);
+    CloseModal();
+}
