@@ -98,8 +98,6 @@ function GetGroups() {
         }
     });
     return resp.responseText;
-
-
 }
 function DeleteStudent(param) {
     if (param == undefined) param = "";
@@ -227,8 +225,6 @@ function GetAvgMark(groupId) {
         }
     });
     return resp.responseText;
-
-
 }
 function RenderGroupInfo(id) {
     $.ajax({
