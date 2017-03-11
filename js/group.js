@@ -3,22 +3,6 @@ $(document).ready(function () {
     RenderGroupInfo(groupId);
     RenderStudents(groupId);
 
-    $('#add-btn').click(function () {
-        show_edit_center("add");
-    });
-    $('.close-background, #close-bg').click(function () {
-        CloseModal();
-    });
-    $('#stud-body').on("mouseenter", ".left-td.first",  function () {
-        $(this).find(".small-button").css({
-            opacity : 0.4
-        })
-    });
-    $('#stud-body').on("mouseleave", ".left-td.first",  function () {
-        $(this).find(".small-button").css({
-            opacity : 0
-        })
-    });
     $('#stud-body').on("click", ".small-button.edit",  function () {
         var id = $(this).parent().find(".gr-name").attr("st-id");
         var name = $(this).parent().find(".gr-name").html();

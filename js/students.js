@@ -1,23 +1,8 @@
 $(document).ready(function () {
     RenderStudents();
-    $('#add-btn').click(function () {
-        show_edit_center("add");
-    });
+
     $('#filter').click(function () {
         show_edit_center("filter");
-    });
-    $('.close-background, #close-bg').click(function () {
-        CloseModal();
-    });
-    $('#stud-body').on("mouseenter", ".left-td.first",  function () {
-        $(this).find(".small-button").css({
-            opacity : 0.4
-        })
-    });
-    $('#stud-body').on("mouseleave", ".left-td.first",  function () {
-        $(this).find(".small-button").css({
-            opacity : 0
-        })
     });
     $('#stud-body').on("click", ".small-button.edit",  function () {
         var id = $(this).parent().find(".gr-name").attr("st-id");
@@ -36,9 +21,6 @@ $(document).ready(function () {
         window.location.href = "group.html?group=" +$(this).attr("gr-id");
     });
 });
-
-
-
 
 function show_edit_center(type, id,name,mark,group) {
     $(".app").css({

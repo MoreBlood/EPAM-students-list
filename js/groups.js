@@ -3,22 +3,6 @@ $(document).ready(function () {
     $('#filter').click(function () {
         show_edit_center("filter");
     });
-    $('#add-btn').click(function () {
-        show_edit_center("add");
-    });
-    $('.close-background, .close-modal').click(function () {
-        CloseModal();
-    });
-    $('#stud-body').on("mouseenter", ".left-td.first",  function () {
-        $(this).find(".small-button").css({
-            opacity : 0.4
-        })
-    });
-    $('#stud-body').on("mouseleave", ".left-td.first",  function () {
-        $(this).find(".small-button").css({
-            opacity : 0
-        })
-    });
     $('#stud-body').on("click", ".small-button.edit",  function () {
         var id = $(this).parent().find(".gr-name").attr("gr-id");
         var name = $(this).parent().find(".gr-name").html();
