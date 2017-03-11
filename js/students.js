@@ -114,7 +114,7 @@ function RenderStudents(param) {
         url: host + "/students" + param ,
         dataType: "json",
         success: function (data) {
-            DrawGroups(data);
+            DrawAllStudents(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
@@ -122,16 +122,25 @@ function RenderStudents(param) {
     });
 
 }
-function DrawGroups(data) {
+function DrawAllStudents(data) {
     avg = 0;
+    var groupsData = JSON.parse(GetGroups());
     for (var student in data) {
         $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" st-id="' + data[student].studentId + '">'
             + data[student].name +'</span><span class="small-button edit"></span>'+'<span class="small-button delete"></span>' +
-            '</td>' + '<td class="left-td first mid" gr-id="' + data[student].groupId  + '">' + GetGroupById(data[student].groupId) + '</td>' + '<td class="mid-td">' + data[student].gpa + '</td> </tr>');
+            '</td>' + '<td class="left-td first mid" gr-id="' + data[student].groupId  + '">' + FindGroupByIdInData(groupsData, data[student].groupId) + '</td>' + '<td class="mid-td">' + data[student].gpa + '</td> </tr>');
         avg += data[student].gpa;
     }
     $("#num-stud").html(data.length);
     $("#avg-mark").html((avg/data.length).toFixed(2));
+}
+
+function FindGroupByIdInData(data, id) {
+    for (var group in data){
+        if (data[group].groupId == id ) return data[group].name;
+    }
+    return "NotFound!";
+
 }
 function AddSt() {
     var name = $('#new-st-name').val(), mark = $('#new-st-mark').val(), group = $('#new-st-group option:selected').attr('gr-id');
