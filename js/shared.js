@@ -12,14 +12,27 @@ $(document).ready(function () {
         s.parentNode.insertBefore(wf, s);
     })();
 
+    $('body').append(
+    '<div class="se-pre-con"></div>' +
+    '<div class="modal_back not-visible-modal">'+
+        '<div class="close-background"></div>'+
+        '<div class="modal-window change" id="filter-edit">'+
+            '<div class="modal-header">'+
+            '<!--HEADER DATA-->'+
+            '</div>'+
+        '<br>'+
+            '<div class="close-modal" id="close-bg"></div>'+
+                '<div class="modal-body">'+
+                '<!--BODY DATA-->'+
+            '</div>'+
+            '<div class="modal-footer">'+
+                '<!--FOOTER DATA-->'+
+            '</div>'+
+        '</div>' +
+    '</div>');
 
-    $('body').append('<div class="se-pre-con"></div>' +
-        '<div class="modal_back not-visible-modal"></div>');
-
-    $('.modal_back.not-visible-modal').load('modal.html', function() {
-        $('.close-background, #close-bg').click(function () {
-            CloseModal();
-        })
+    $('.close-background, #close-bg').click(function () {
+        CloseModal();
     });
 
     $('#stud-body').on("mouseenter", ".left-td.first",  function () {
