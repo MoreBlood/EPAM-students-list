@@ -1,4 +1,18 @@
 $(document).ready(function () {
+
+    WebFontConfig = {
+        google: { families: [ 'Open+Sans:300,400,600,700,800' ] }
+    };
+    (function() {
+        var wf = document.createElement('script');
+        wf.src = 'js/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+    })();
+
+
     $('body').append('<div class="se-pre-con"></div>' +
         '<div class="modal_back not-visible-modal"></div>');
 
