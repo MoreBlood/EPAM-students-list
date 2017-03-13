@@ -49,6 +49,7 @@ $(document).ready(function () {
     $('#add-btn').click(function () {
         show_edit_center("add");
     });
+    $('.table-gr').addClass('table-striped');
 
     var navHeight = $('.navigation').height();
 

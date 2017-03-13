@@ -120,8 +120,8 @@ function DrawAllStudents(data) {
     var avg = 0,
         groupsData = GetGroups();
     for (var student in data) {
-        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" st-id="' + data[student].studentId + '">'
-            + data[student].name + '</span><span class="small-button edit"></span>' + '<span class="small-button delete"></span>' +
+        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="small-button edit"></span><span class="small-button delete"></span><span class="gr-name" st-id="' + data[student].studentId + '">'
+            + data[student].name + '</span>'  +
             '</td>' + '<td class="left-td first mid" gr-id="' + data[student].groupId + '">' + FindGroupByIdInData(groupsData, data[student].groupId) + '</td>' + '<td class="mid-td">' + data[student].gpa + '</td> </tr>');
         avg += data[student].gpa;
     }

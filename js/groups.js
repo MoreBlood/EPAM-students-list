@@ -99,7 +99,7 @@ function show_edit_center(type, id, name, grad) {
 }
 function DrawGroups(data) {
     for (var group in data) {
-        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" gr-id="' + data[group].groupId + '">' + data[group].name + '</span><span class="small-button edit"></span>' + '<span class="small-button delete"></span>' +
+        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="small-button edit"></span><span class="small-button delete"></span><span class="gr-name" gr-id="' + data[group].groupId + '">' + data[group].name + '</span>' +
             '</td>' + '<td class="left-td first mid">' + data[group].graduationDate + '</td>' +
             '<td class="mid-td">' + (Math.round(GetAvgMark(data[group].groupId) * 100) / 100) + '</td> </tr>')
     }

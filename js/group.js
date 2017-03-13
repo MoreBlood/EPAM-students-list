@@ -98,7 +98,7 @@ function RenderStudents(param) {
 function DrawGroups(data) {
     avg = 0;
     for (var student in data) {
-        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="gr-name" st-id="' + data[student].studentId + '">' + data[student].name + '</span><span class="small-button edit"></span>' + '<span class="small-button delete"></span>' +
+        $("#stud-body").append('<tr class="tr-gr hover"> <td class="left-td first"><span class="small-button edit"></span><span class="small-button delete"></span><span class="gr-name" st-id="' + data[student].studentId + '">' + data[student].name + '</span>' +
             '</td>' + '<td class="mid-td">' + data[student].gpa + '</td> </tr>');
         avg += data[student].gpa;
     }
