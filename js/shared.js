@@ -1,48 +1,49 @@
 $(document).ready(function () {
 
-    WebFontConfig = {
-        google: { families: [ 'Open+Sans:300,400,600,700,800' ] }
-    };
-    (function() {
-        var wf = document.createElement('script');
-        wf.src = 'js/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-    })();
+    //webfonts loader, uncomment if fonts looks weird
+    /*WebFontConfig = {
+     google: { families: [ 'Open+Sans:300,400,600,700,800' ] }
+     };
+     (function() {
+     var wf = document.createElement('script');
+     wf.src = 'js/webfont.js';
+     wf.type = 'text/javascript';
+     wf.async = 'true';
+     var s = document.getElementsByTagName('script')[0];
+     s.parentNode.insertBefore(wf, s);
+     })();*/
 
     $('body').append(
-    '<div class="se-pre-con"></div>' +
-    '<div class="modal_back not-visible-modal">'+
-        '<div class="close-background"></div>'+
-        '<div class="modal-window change" id="filter-edit">'+
-            '<div class="modal-header">'+
-            '<!--HEADER DATA-->'+
-            '</div>'+
-        '<br>'+
-            '<div class="close-modal" id="close-bg"></div>'+
-                '<div class="modal-body">'+
-                '<!--BODY DATA-->'+
-            '</div>'+
-            '<div class="modal-footer">'+
-                '<!--FOOTER DATA-->'+
-            '</div>'+
+        '<div class="se-pre-con"></div>' +
+        '<div class="modal_back not-visible-modal">' +
+        '<div class="close-background"></div>' +
+        '<div class="modal-window change" id="filter-edit">' +
+        '<div class="modal-header">' +
+        '<!--HEADER DATA-->' +
         '</div>' +
-    '</div>');
+        '<br>' +
+        '<div class="close-modal" id="close-bg"></div>' +
+        '<div class="modal-body">' +
+        '<!--BODY DATA-->' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '<!--FOOTER DATA-->' +
+        '</div>' +
+        '</div>' +
+        '</div>');
 
     $('.close-background, #close-bg').click(function () {
         CloseModal();
     });
 
-    $('#stud-body').on("mouseenter", ".left-td.first",  function () {
+    $('#stud-body').on("mouseenter", ".left-td.first", function () {
         $(this).find(".small-button").css({
-            opacity : 0.4
+            opacity: 0.4
         })
     });
-    $('#stud-body').on("mouseleave", ".left-td.first",  function () {
+    $('#stud-body').on("mouseleave", ".left-td.first", function () {
         $(this).find(".small-button").css({
-            opacity : 0
+            opacity: 0
         })
     });
     $('#add-btn').click(function () {
@@ -52,7 +53,7 @@ $(document).ready(function () {
     var navHeight = $('.navigation').height();
 
     $('.table-holder').css({
-        marginTop :navHeight
+        marginTop: navHeight
     });
     $('.table-gr').stickyTableHeaders({fixedOffset: navHeight});
 });
@@ -116,15 +117,12 @@ function GetGroups() {
         dataType: "json",
         async: false,
         success: function (data) {
-            //alert(data);
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
-    return resp.responseText;
+    return JSON.parse(resp.responseText);
 }
 function DeleteStudent(param) {
     if (param == undefined) param = "";
@@ -136,7 +134,6 @@ function DeleteStudent(param) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
 }
@@ -153,7 +150,6 @@ function EditStudent(studentId, name, gpa, groupId) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
 }
@@ -185,7 +181,6 @@ function RenderGroups(param) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
 }
@@ -193,13 +188,12 @@ function DeleteGroup(param) {
     if (param == undefined) param = "";
     $.ajax({
         type: "DELETE",
-        url: host + "/group/id" + param,
+        url: host + "/groups/id" + param,
         success: function (data) {
             RenderGroups();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
 }
@@ -216,7 +210,6 @@ function EditGroup(id, name, grad) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
 }
@@ -233,7 +226,6 @@ function AddGroup(name, grad) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
 }
@@ -243,12 +235,9 @@ function GetAvgMark(groupId) {
         url: host + "/students/gpa?groupId=" + groupId,
         async: false,
         success: function (data) {
-            //alert(data);
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
     return resp.responseText;
@@ -276,7 +265,6 @@ function GetGroupById(id) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             DrawException(jqXHR);
-            
         }
     });
     return JSON.parse(resp.responseText).name;
@@ -303,18 +291,18 @@ function DrawException(exception) {
     console.log(exception);
     $(".modal-body, .modal-footer, .modal-header ").empty();
 
-        var typeOfError = "Please check your input";
-        var exceptionText = exception.responseText;
+    var typeOfError = "Please check your input",
+        exceptionText = exception.responseText;
 
-        if (exceptionText != undefined) exceptionText = exceptionText.replace('IllegalArgumentException: ', '');
-        else {
-            exceptionText = "No connection";
-            typeOfError = "Critical error"
-        }
+    if (exceptionText != undefined) exceptionText = exceptionText.replace('IllegalArgumentException: ', '');
+    else {
+        exceptionText = "No connection";
+        typeOfError = "Critical error"
+    }
 
-        $(".modal-header").append('<p class="big-text">' + typeOfError + '</p>');
-        $(".modal-body").append('<p class="some-info break">' + exceptionText +'</p>');
-        $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Ok</button>');
+    $(".modal-header").append('<p class="big-text">' + typeOfError + '</p>');
+    $(".modal-body").append('<p class="some-info break">' + exceptionText + '</p>');
+    $(".modal-footer").append('<button id="cancel" class="button small green" onclick="CloseModal()">Ok</button>');
 
     $(".modal_back").addClass("visible-modal");
 
