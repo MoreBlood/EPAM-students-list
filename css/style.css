@@ -490,7 +490,7 @@ th.datepicker-switch {
 input.r-border {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    width: 190px;
+    width: 180px;
 }
 
 .small-button {
@@ -574,8 +574,11 @@ div#slider-range {
     height: 3px;
     background: #00c8fd;
     position: relative;
-    margin-right: 9px;
+    margin-right: 0px;
     border-radius: 2px;
+    background: linear-gradient(to right, rgba(0, 200, 255, 1) 0%, rgba(0, 220, 84, 1) 100%);
+    margin-left: 6px;
+    margin-right: 9px;
 }
 
 span.ui-slider-handle.ui-corner-all.ui-state-default {
@@ -595,7 +598,6 @@ span.ui-slider-handle.ui-corner-all.ui-state-default {
 }
 
 .ui-slider-range.ui-corner-all.ui-widget-header {
-    background: #77e2ff;
     height: 3px;
     position: relative;
 }
@@ -689,7 +691,7 @@ th {
 }
 
 
-/*              Â¯ \ _ (ãƒ„) _ / Â¯   firefox...             we are using --variables, but who cares? except microsoft IE */
+/* firefox...             we are using --variables, but who cares? except microsoft IE */
 
 @-moz-document url-prefix() {
     .small-button.edit {
@@ -706,4 +708,12 @@ th {
     }
     .close-modal {
         background: var(--image-cross);
+    }
+}
     
+
+input#mark-range-between:hover {
+    border: 1px solid #E5E5E5;
+    border-left: 0;
+    border-right: 0;
+}
